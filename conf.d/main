@@ -1,5 +1,7 @@
 #!/bin/sh -ex
 
+VERSION="7.5.0"
+
 DB_NAME=vtigercrm
 DB_USER=vtigercrm
 ###DB_PASS=$(mcookie)
@@ -11,10 +13,13 @@ ADMIN_PASS=turnkey
 SRC=/usr/local/src
 WEBROOT=/var/www/vtigercrm
 
+URL="https://sourceforge.net/projects/vtigercrm/files/vtiger%20CRM%20$VERSION/Core%20Product/vtigercrm$VERSION.tar.gz/download"
+wget -O $SRC/vtigercrm.tgz $URL
+
 # unpack and set required permissions
-tar -zxf $SRC/vtiger*.tar.gz -C $(dirname $WEBROOT)
-rm $SRC/vtiger*.tar.gz
-mv $SRC/vtiger* $WEBROOT
+tar -zxf $SRC/vtigercrm.tgz
+rm $SRC/vtigercrm.tgz
+mv vtigercrm $WEBROOT
 chown -R www-data:www-data $WEBROOT
 
 # php.ini
@@ -33,7 +38,6 @@ a2enmod rewrite
 # start services
 systemctl start mysql
 systemctl start apache2
-
  
 MYSQL_BATCH="mysql --batch"
 
