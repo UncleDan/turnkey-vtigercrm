@@ -1,4 +1,4 @@
-Vtiger CRM - lightweight customer relationship manager
+Vtiger CRM - An enterprise-class CRM and more!
 ===================================================
 
 **Features**
