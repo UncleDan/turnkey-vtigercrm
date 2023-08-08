@@ -1,7 +1,9 @@
 Vtiger CRM - An enterprise-class CRM and more!
 ===================================================
 
-**`Vtiger CRM - Open Source version`_**
+`Vtiger CRM - Open Source version`_
+
+*Features:*
 
 * End to end sales cycle management from campaigns, leads, potentials, quotes, invoices..
 * Support automation using a customer portal and support tickets
