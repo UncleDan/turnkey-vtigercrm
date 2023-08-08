@@ -1,0 +1,6 @@
+#include <turnkey/base>
+#include <turnkey/lamp>
+
+php-imap
+php-curl
+php-xml

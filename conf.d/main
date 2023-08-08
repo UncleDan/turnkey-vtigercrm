@@ -1,0 +1,55 @@
+#!/bin/sh -ex
+
+DB_NAME=vtigercrm
+DB_USER=vtigercrm
+###DB_PASS=$(mcookie)
+DB_PASS=Vtiger2023!
+
+ADMIN_NAME=admin
+ADMIN_PASS=turnkey
+
+SRC=/usr/local/src
+WEBROOT=/var/www/vtigercrm
+
+# unpack and set required permissions
+tar -zxf $SRC/vtiger*.tar.gz -C $(dirname $WEBROOT)
+rm $SRC/vtiger*.tar.gz
+mv $SRC/vtiger* $WEBROOT
+chown -R www-data:www-data $WEBROOT
+
+# php.ini
+CONF=/etc/php/8.2/apache2/php.ini
+sed -i "s|^memory_limit.*|memory_limit = 256M|" $CONF
+sed -i "s|^max_execution_time.*|max_execution_time = 60|" $CONF
+sed -i "s|^error_reporting.*|error_reporting = E_ERROR & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED|" $CONF
+sed -i "s|^display_errors.*|display_errors = OFF|" $CONF
+sed -i "s|^short_open_tag.*|short_open_tag = OFF|" $CONF
+
+# configure apache
+a2dissite 000-default
+a2ensite vtigercrm
+a2enmod rewrite
+
+# start services
+systemctl start mysql
+systemctl start apache2
+
+ 
+MYSQL_BATCH="mysql --batch"
+
+mysqladmin create $DB_NAME
+
+$MYSQL_BATCH --execute "CREATE USER 'vtigercrm'@'localhost' IDENTIFIED BY '$DB_PASS';"
+$MYSQL_BATCH --execute "GRANT ALL PRIVILEGES ON * . * TO 'vtigercrm'@'localhost';"
+
+# setup the database
+MYSQL_BATCH="mysql --user=root --password=$MYSQL_PASS --batch"
+MYSQL_ADMIN="mysqladmin --user=root --password=$MYSQL_PASS"
+
+$MYSQL_ADMIN create $DB_NAME
+$MYSQL_BATCH --execute "grant all privileges on $DB_NAME.* to $DB_USER@localhost identified by '$DB_PASS';"
+
+
+# stop services
+service apache2 stop
+service mysql stop
