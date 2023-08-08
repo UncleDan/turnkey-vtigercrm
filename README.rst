@@ -1,7 +1,7 @@
 Vtiger CRM - An enterprise-class CRM and more!
 ===================================================
 
-**Features**
+**`Vtiger CRM - Open Source version`_**
 
 * End to end sales cycle management from campaigns, leads, potentials, quotes, invoices..
 * Support automation using a customer portal and support tickets
@@ -39,7 +39,7 @@ Credentials *(passwords set at first boot)*
 -  Vtiger CRM: username **admin**
 
 
-.. _Vtiger CRM: https://www.vtiger.com/it/open-source-crm/
+.. _Vtiger CRM - Open Source version: https://www.vtiger.com/it/open-source-crm/
 .. _TurnKey Core: https://www.turnkeylinux.org/core
 .. _Vtiger CRM documentation - Installation: https://community.vtiger.com/help/vtigercrm/administrators/installation.html
 .. _Vtiger CRM documentation - Migration/upgrade: https://community.vtiger.com/help/vtigercrm/administrators/migration.html
